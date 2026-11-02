@@ -58,7 +58,7 @@ const getTimeout = function () {
   );
 
   //Currently the function returns random values
-  return Math.floor(Math.random() * 2000);
+  return Math.floor(Math.random() * 2000 + 1000);
 };
 
 const getCSVDataLine = function (obj, pid) {
