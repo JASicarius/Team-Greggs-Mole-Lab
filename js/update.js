@@ -8,6 +8,8 @@ const getRandVal = function () {
   return Math.random() * 2 - 1;
 };
 
+let lastPos = { x: 0, y: 0 }; // Remembers the location the mole was last, for changes I'll add to getMolePosition for increased difficulty.
+
 const getMolePosition = function () {
   //function to generate a new location for the mole
   //function returns an object with fields x and y i.e. {x:<val>, y:<val>}
@@ -19,8 +21,15 @@ const getMolePosition = function () {
   );
   console.warn("|==============> x is between -1 and 1 and y is between -0.73 and 0.73");
 
-  //Currently the function returns random values
-  return { x: getRandVal(), y: 0.73*getRandVal() };
+  const minJump = 0.6; // Added this for a minimum distance check where the mole must move each time.
+
+  let posl
+  do {
+    pos = { x: getRandVal(), y: 0.73 * getRandVal() };
+  } while (Math.hypot(pos.x - lastPos.x, pos.y - lastPos.y) < minJump);
+
+  lastPos = pos;
+  return pos;
 };
 
 
@@ -35,8 +44,8 @@ const getMoleSize = function () {
   );
   console.warn("|==============> returned value needs to be between 1 and 2");
 
-  //Currently the function randomly returns one of three values: 1.25, 1.5 and 2.0
-  return [1.25, 1.5, 2.0][Math.floor(Math.random() * 3)];
+  //Currently the function randomly returns one of three values: 1, 1.25, 1.5
+  return [1, 1.25, 1.5][Math.floor(Math.random() * 3)];
 };
 
 const getTimeout = function () {
@@ -49,7 +58,7 @@ const getTimeout = function () {
   );
 
   //Currently the function returns random values
-  return Math.floor(Math.random() * 2000 + 1000);
+  return Math.floor(Math.random() * 2000);
 };
 
 const getCSVDataLine = function (obj, pid) {
