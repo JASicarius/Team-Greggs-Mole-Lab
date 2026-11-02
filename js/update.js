@@ -32,7 +32,7 @@ const getMolePosition = function () {
   return pos;
 };
 
-
+let currentSize = 2; // Added a static mole starting size over random. In getMoleSize I'll decrease the size each time for more control but also a slight difficulty curve.
 
 const getMoleSize = function () {
   //function to generate a scale / size of the mole
@@ -44,8 +44,12 @@ const getMoleSize = function () {
   );
   console.warn("|==============> returned value needs to be between 1 and 2");
 
-  //Currently the function randomly returns one of three values: 1, 1.25, 1.5
-  return [1, 1.25, 1.5][Math.floor(Math.random() * 3)];
+  const shrinkAmount = 0.1
+  const minSize = 1;
+
+  const size = currentSize;
+  currentSize = Math.max(minSize, currentSize - shrinkAmount);
+  return size;
 };
 
 const getTimeout = function () {
