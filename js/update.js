@@ -61,8 +61,8 @@ const getTimeout = function () {
     "|==============> returned value needs to be a 4-5 digit number as this represents milliseconds"
   );
 
-  //Currently the function returns random values
-  return Math.floor(Math.random() * 2000 + 1000);
+  // Scrapped the random values and just made it return 3000 (previous cap).
+  return 3000;
 };
 
 const getCSVDataLine = function (obj, pid) {
